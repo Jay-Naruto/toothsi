@@ -83,12 +83,12 @@ function App() {
       <div className='filter-row'>
         <div>
         <div>
-        <Select options={options1} onChange={(e)=>{setType(e.value)}}  />
+        <Select className='drops' options={options1} onChange={(e)=>{setType(e.value)}}  />
         </div>
 
         <div>
           
-          <Select options={options2} onChange={(e)=>{setSize(e.value)}}  />
+          <Select className='drops' options={options2} onChange={(e)=>{setSize(e.value)}}  />
 
         </div>
         <div>

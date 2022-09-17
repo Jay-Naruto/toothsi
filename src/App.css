@@ -357,3 +357,23 @@ td.text-center {
 td.text-right {
   text-align: center;
 }
+@media screen and (max-width:1200px){
+  .filter-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    align-items: center;
+  }
+  .filter-row div{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  
+  }
+  .drops{
+    /* height: 70px ; */
+    width: 100%;
+    /* text-align: center !important; */
+  }
+}

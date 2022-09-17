@@ -2,27 +2,31 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import "./Checkout.css"
 import { dummy } from '../../dummy';
+import { useThrottle } from 'react-use';
 export default function Checkout() {
-    const [totalCost, setTotalCost] = useState([])
-   let counter=[]
-    let location = useLocation();
-    for(let i=0;i<location.state.data.length;i++){
-      counter.push(location.state.data[i].counter)
 
-    }
-    console.log(location.state.data)
+   const [counter,setCounter] =useState(0)
+   let location = useLocation();
+   const [totalcost,setTotalCost]=useState([])
+ 
     // setCounter(location.state.data[0].counter)
     // Function is called everytime increment button is clicked
     const handleClick1 = (c,index) => {
       // Counter state is incremented
-      counter[index]=counter[index] + 1
+      return setCounter(c+1)
     }
     const handleClick2 = (c,index) => {
         // Counter state is incremented
-        counter[index]=counter[index] - 1
+        return setCounter(c-1)
+
 
       }
-    
+      // for (let i=0;i<location.state.data.length;i++)
+      // {
+      //   setTotalCost(old=>[...old,counter*location.state.data.price])
+      // }
+      // const newTotal=totalcost.reduce((a, b) => a + b, 0)
+  
 
     const [products, setProducts] = React.useState(location.state.data);
 
@@ -44,8 +48,8 @@ export default function Checkout() {
   
       setProducts(filteredProduct);
     };
-  
 
+const [newTotal,setNewTotal]=useState()
 
 
 
@@ -148,12 +152,19 @@ export default function Checkout() {
 <td className="text-left">{data.price}</td>
 <td className="text-left">
     <div className='counter-display'>
-        <div onClick={()=>{handleClick1(data.counter,index)}}>+</div>
+        <div onClick={()=>{setCounter(counter + 1)
+        
+setTotalCost(old=>[...old,counter*data.price]);
+setNewTotal(totalcost.reduce((a, b) => a + b, 0))
+        }}>+</div>
      
-        <input className='counter1' type="text" key={index} value={counter ? counter[index]:null} 
-        onChange={(event) =>{ onChangeProductQuantity(index,event); }} />
+        <input className='counter1' type="text" key={index} value={counter} 
+        />
 
-        <div onClick={()=>{handleClick2(data.counter,index)}}>-</div>
+        <div onClick={()=>{setCounter(counter - 1);
+        
+setTotalCost(old=>[...old,counter*data.price]);
+setNewTotal(totalcost.reduce((a, b) => a - b, 0))}}>-</div>
     </div>
     <div>
 
@@ -165,6 +176,11 @@ export default function Checkout() {
 
 
 </tr>
+{()=>{
+
+}
+
+}
             
 
       </>
@@ -205,7 +221,7 @@ export default function Checkout() {
                 </li>
               
                 <li className="total">
-                  Total <span>{formatCurrency(subTotal)}</span>
+                  Total <span>{formatCurrency(newTotal ? newTotal : null)}</span>
                 </li>
               </ul>
             </div>
